@@ -9,7 +9,10 @@ const termsOfService = ref(false);
 const gender = ref('Man');
 const city = ref('');
 
-const emit = defineEmits(['next-page']);
+const emit = defineEmits(['next-page','increment']);
+const props = defineProps({
+  commonInfo: Number
+})
 
 function requiredFields(){
   return termsOfService.value && firstName.value
@@ -35,6 +38,8 @@ function onSubmit() {
 <template>
 
   <div>
+    <button @click="$emit('increment')">The shared number: {{props.commonInfo}}</button>
+    <br>
     <span>FirstName:</span>
     <input v-model="firstName" placeholder="enter first name">
     <span v-if="!firstName" style="color: red">This field is required</span>

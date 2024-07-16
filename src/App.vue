@@ -1,13 +1,17 @@
 <script setup>
-import { ref} from 'vue'
+import {reactive, ref} from 'vue'
 import FirstStep from './components/FirstStep.vue'
 import LastStep from './components/LastStep.vue'
-const currentPath = ref(FirstStep)
+const pages = reactive([FirstStep,LastStep])
+const currentIndex = ref(0);
+const common = ref(0);
 </script>
 
 <template>
   <main>
-    <component :is="currentPath"
-    @next-page="()=>{currentPath=LastStep}"/>
+    <component :is="pages[currentIndex]"
+    @next-page="()=>{currentIndex=1-currentIndex}"
+    :commonInfo = "common"
+    @increment="common++"/>
   </main>
 </template>
