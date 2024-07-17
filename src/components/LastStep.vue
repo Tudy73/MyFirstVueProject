@@ -16,11 +16,19 @@ async function fetchData(){
     console.error('The error is: ',e);
   }
 }
+function onEmit(){
+  console.log(Object.values(data.value))
+  emit('increment',Object.values(data.value).map(x => x['name']))
+}
 fetchData()
 </script>
 
 <template>
-  <button @click="$emit('increment')">The shared number: {{props.commonInfo}}</button>
+  <div>
+    <button @click="onEmit">Share info</button>
+    The shared information
+    <RecursiveTable :data="[commonInfo]"/>
+  </div>
   <button @click="$emit('next-page')">Go Back</button>
   <RecursiveTable :data="data"/>
 </template>

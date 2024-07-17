@@ -5,6 +5,9 @@ import LastStep from './components/LastStep.vue'
 const pages = reactive([FirstStep,LastStep])
 const currentIndex = ref(0);
 const common = ref(0);
+function setCommonData(value){
+  common.value = value;
+}
 </script>
 
 <template>
@@ -12,6 +15,6 @@ const common = ref(0);
     <component :is="pages[currentIndex]"
     @next-page="()=>{currentIndex=1-currentIndex}"
     :commonInfo = "common"
-    @increment="common++"/>
+    @increment="setCommonData"/>
   </main>
 </template>

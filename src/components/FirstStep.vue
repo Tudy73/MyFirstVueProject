@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import RecursiveTable from "@/components/RecursiveTable.vue";
 
 const response = ref('');
 const firstName = ref('');
@@ -13,6 +14,9 @@ const emit = defineEmits(['next-page','increment']);
 const props = defineProps({
   commonInfo: Number
 })
+function onEmit(){
+  emit("increment",{firstName: firstName,lastName:lastName,city:city})
+}
 
 function requiredFields(){
   return termsOfService.value && firstName.value
@@ -21,12 +25,6 @@ function requiredFields(){
 
 function onSubmit() {
   if(requiredFields()){
-    // response.value = `Hello ${(gender.value === "Man")?"Sir":"Miss"}
-    // ${firstName.value} ${lastName.value}!!!
-    // ${address.value?("You live at the address " + address.value):''}`
-    // firstName.value = '';
-    // lastName.value = '';
-    // address.value = '';
     emit('next-page');
   }
   else{
@@ -38,7 +36,8 @@ function onSubmit() {
 <template>
 
   <div>
-    <button @click="$emit('increment')">The shared number: {{props.commonInfo}}</button>
+    <button @click="onEmit">Share information</button>
+    <RecursiveTable :data="[props.commonInfo]"/>
     <br>
     <span>FirstName:</span>
     <input v-model="firstName" placeholder="enter first name">
